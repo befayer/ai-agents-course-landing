@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Разработка ПО с AI-агентами</title>
-<meta name="description" content="Курс Spring АйО Академии и OpenIDE: как вести задачу с AI-агентом от issue до проверенного pull request. 5 живых занятий, старт 1 декабря 2026.">
+<meta name="description" content="Курс Spring АйО Академии и OpenIDE: как устроены AI-агенты, как вести с ними разработку и как проверять их код. 5 живых занятий, старт 1 декабря 2026.">
 <meta property="og:title" content="Разработка ПО с AI-агентами — Spring АйО Академия × OpenIDE">
 <meta property="og:description" content="Агент пишет код за минуты. Отвечаете за него вы. Старт 1 декабря 2026.">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -442,43 +442,51 @@ footer .collab{background:rgba(255,255,255,.92)}
 <!-- 2. Программа -->
 <section class="band" id="program">
   <div class="wrap">
-    <p class="eyebrow rv">программа · 4 модуля</p>
-    <h2 class="h2 scrub" style="margin-top:14px">Четыре модуля от первого промпта до <span class="hl">автономного агента</span></h2>
+    <p class="eyebrow rv">программа · 5 тем</p>
+    <h2 class="h2 scrub" style="margin-top:14px">От того, как устроен агент, до <span class="hl">проверок, которым можно доверять</span></h2>
     <div class="prog">
       <div class="prog-vis" aria-hidden="true">
         <div class="stack">
-          <svg viewBox="0 0 380 364">
-            <g class="pl" data-i="3"><path class="side-f" d="M22 298 v14 l96 48 v-14 z M118 360 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 250 L214 298 L118 346 L22 298 Z"/><text class="n" x="74" y="304" text-anchor="middle">04</text><circle class="dot" cx="222" cy="298" r="3"/><text class="l" x="232" y="303">автономные</text></g>
-            <g class="pl" data-i="2"><path class="side-f" d="M22 224 v14 l96 48 v-14 z M118 286 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 176 L214 224 L118 272 L22 224 Z"/><text class="n" x="74" y="230" text-anchor="middle">03</text><circle class="dot" cx="222" cy="224" r="3"/><text class="l" x="232" y="229">spec-driven</text></g>
-            <g class="pl" data-i="1"><path class="side-f" d="M22 150 v14 l96 48 v-14 z M118 212 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 102 L214 150 L118 198 L22 150 Z"/><text class="n" x="74" y="156" text-anchor="middle">02</text><circle class="dot" cx="222" cy="150" r="3"/><text class="l" x="232" y="155">development flow</text></g>
-            <g class="pl on" data-i="0"><path class="side-f" d="M22 76 v14 l96 48 v-14 z M118 138 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 28 L214 76 L118 124 L22 76 Z"/><text class="n" x="74" y="82" text-anchor="middle">01</text><circle class="dot" cx="222" cy="76" r="3"/><text class="l" x="232" y="81">основы</text></g>
+          <svg viewBox="0 0 380 438">
+            <g class="pl" data-i="4"><path class="side-f" d="M22 372 v14 l96 48 v-14 z M118 434 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 324 L214 372 L118 420 L22 372 Z"/><text class="n" x="74" y="378" text-anchor="middle">05</text><circle class="dot" cx="222" cy="372" r="3"/><text class="l" x="232" y="377">guardrails</text></g>
+            <g class="pl" data-i="3"><path class="side-f" d="M22 298 v14 l96 48 v-14 z M118 360 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 250 L214 298 L118 346 L22 298 Z"/><text class="n" x="74" y="304" text-anchor="middle">04</text><circle class="dot" cx="222" cy="298" r="3"/><text class="l" x="232" y="303">возможности</text></g>
+            <g class="pl" data-i="2"><path class="side-f" d="M22 224 v14 l96 48 v-14 z M118 286 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 176 L214 224 L118 272 L22 224 Z"/><text class="n" x="74" y="230" text-anchor="middle">03</text><circle class="dot" cx="222" cy="224" r="3"/><text class="l" x="232" y="229">способы работы</text></g>
+            <g class="pl" data-i="1"><path class="side-f" d="M22 150 v14 l96 48 v-14 z M118 212 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 102 L214 150 L118 198 L22 150 Z"/><text class="n" x="74" y="156" text-anchor="middle">02</text><circle class="dot" cx="222" cy="150" r="3"/><text class="l" x="232" y="155">среда</text></g>
+            <g class="pl on" data-i="0"><path class="side-f" d="M22 76 v14 l96 48 v-14 z M118 138 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 28 L214 76 L118 124 L22 76 Z"/><text class="n" x="74" y="82" text-anchor="middle">01</text><circle class="dot" cx="222" cy="76" r="3"/><text class="l" x="232" y="81">устройство</text></g>
           </svg>
         </div>
-        <div class="stack-cap"><b id="capName">Основы</b><span id="capNo">модуль 1 из 4</span></div>
+        <div class="stack-cap"><b id="capName">LLM и агенты</b><span id="capNo">тема 1 из 5</span></div>
       </div>
       <div class="mods">
-        <article class="mod" data-i="0" data-name="Основы">
-          <span class="no">модуль 01</span>
-          <h3>Основы работы с AI-агентами</h3>
-          <p>Как устроен агент и как управлять его контекстом, чтобы результат был предсказуемым, а не удачным.</p>
-          <ul><li>Что такое AI-агент</li><li>Контекст, tool-ы и разрешения <small>· AGENTS.md, compaction</small></li><li>Команды, MCP и skill-ы</li><li class="opt">Свой MCP-сервер <small>· факультатив</small></li><li class="opt">Свой skill <small>· факультатив</small></li><li>Sub-agent-ы, workflows и /goal</li></ul>
+        <article class="mod" data-i="0" data-name="LLM и агенты">
+          <span class="no">тема 01</span>
+          <h3>Как устроены LLM и агенты</h3>
+          <p>Что происходит между промптом и ответом — и почему от этого зависят качество и цена.</p>
+          <ul><li>Токены, temperature и размышления</li><li>Больше размышлений — не значит лучше ответ</li><li>Кэш промпта: как не платить дважды</li><li>Function calling и агентский цикл</li><li>Контекст — единственная память модели</li></ul>
         </article>
-        <article class="mod" data-i="1" data-name="Development Flow">
-          <span class="no">модуль 02</span>
-          <h3>Development Flow</h3>
-          <p>Главный практический модуль: задача проходит путь от короткого issue до проверенного pull request.</p>
-          <ul><li>Планирование до кода</li><li>Cross-agent review</li><li>Guardrails и quality gate</li><li>Ревью разработчиком в IDE</li><li>Параллельные задачи и Git worktree</li><li>Баги: debugger, profiler, гипотезы</li><li>Когда токены не заканчиваются <small>· внимание и WIP</small></li></ul>
+        <article class="mod" data-i="1" data-name="Harness и среда">
+          <span class="no">тема 02</span>
+          <h3>Harness и рабочая среда</h3>
+          <p>Что агент умеет из коробки и как собрать рабочее место, где он видит весь проект.</p>
+          <ul><li>Claude Code как harness</li><li>OpenIDE: любые агенты в одной IDE</li><li>Базовый сетап OpenIDE + Claude Code</li></ul>
         </article>
-        <article class="mod" data-i="2" data-name="Spec-Driven">
-          <span class="no">модуль 03</span>
-          <h3>Spec-Driven Development</h3>
-          <p>Для больших задач: спецификация в репозитории — источник правды для плана, кода и тестов.</p>
-          <ul><li>Что такое SDD и когда он окупается</li><li>Инструменты SDD на одной задаче</li><li>OpenSpec под правила команды</li></ul>
+        <article class="mod" data-i="2" data-name="Способы работы">
+          <span class="no">тема 03</span>
+          <h3>Три способа вести разработку</h3>
+          <p>Где проверять работу агента: в готовом результате, в плане или ещё на этапе обсуждения.</p>
+          <ul><li>Промпт → результат: когда хватает одного промпта</li><li>Разработка через план: ошибку понимания ловим до кода</li><li>Сначала обсудить: детали, ожидания, бизнес-правила</li><li>Как выбрать способ под задачу</li></ul>
         </article>
-        <article class="mod" data-i="3" data-name="Автономные агенты">
-          <span class="no">модуль 04</span>
-          <h3>Автономные агенты</h3>
-          <p>Ставите задачу из мессенджера — получаете проверенный pull request. Очереди, изоляция, безопасность и обязательное одобрение человека.</p>
+        <article class="mod" data-i="3" data-name="Возможности harness">
+          <span class="no">тема 04</span>
+          <h3>Возможности harness</h3>
+          <p>Из коробки агент знает всё в общем и ничего — про ваш проект. Учим его вашему проекту.</p>
+          <ul><li>Управление контекстом <small>· /compact, /rewind, /context</small></li><li>CLAUDE.md и AGENTS.md</li><li>Скиллы и MCP-серверы</li><li>Сабагенты и параллельная работа в worktree</li><li>Хуки и разрешения</li></ul>
+        </article>
+        <article class="mod" data-i="4" data-name="Guardrails">
+          <span class="no">тема 05</span>
+          <h3>Guardrails: барьеры для агента</h3>
+          <p>Автоматические проверки, которые падают, если код агента нарушает договорённости команды.</p>
+          <ul><li>Spotless и Checkstyle</li><li>Тесты в два контура: unit и integration</li><li>ArchUnit: архитектура под тестом</li><li>Покрытие JaCoCo и мутационное тестирование PIT</li><li>Базовый сетап Spring Boot-проекта</li></ul>
         </article>
       </div>
     </div>
@@ -532,7 +540,7 @@ footer .collab{background:rgba(255,255,255,.92)}
           <g class="spin"><circle class="acc" cx="160" cy="28" r="17"/></g>
           <path class="s" d="M152 28 l6 6 l11 -12" stroke-width="2.4"/>
         </svg>
-        <div class="t"><span class="pain">было: +1 284 −312 и час ревью</span><h3>Ревью перестаёт быть мучением</h3><p>Агенты проверяют друг друга — к вам приходит diff, который не стыдно читать.</p></div>
+        <div class="t"><span class="pain">было: +1 284 −312 и час ревью</span><h3>Ошибки ловят проверки, а не вы</h3><p>Линтер, архитектурные тесты и покрытие падают раньше, чем diff дойдёт до ревью.</p></div>
       </article>
       <article class="card rv">
         <svg class="iso" viewBox="0 0 320 190" aria-hidden="true">
@@ -551,7 +559,7 @@ footer .collab{background:rgba(255,255,255,.92)}
           <g class="lift l1"><path class="f s" d="M110 110 L210 60 L150 30 L50 80 Z"/><line class="thin" x1="80" y1="80" x2="160" y2="40"/><line class="thin" x1="92" y1="86" x2="172" y2="46"/><line class="thin" x1="104" y1="92" x2="166" y2="61"/><line class="thin" x1="116" y1="98" x2="184" y2="64"/></g>
           <g class="bob"><path class="acc" d="M232 60 l18 -9 l18 9 l-18 9 z"/><path class="s" d="M232 60 v12 l18 9 v-12 M250 81 l18 -9 v-12"/></g>
         </svg>
-        <div class="t"><span class="pain">было: требования размазаны по чату</span><h3>Большие фичи — по спецификации</h3><p>Требования лежат в репозитории, план, код и тесты выводятся из них.</p></div>
+        <div class="t"><span class="pain">было: каждый раз объясняете проект заново</span><h3>Агент знает ваш проект</h3><p>Правила — в AGENTS.md, процедуры — в скиллах, внешние системы — через MCP.</p></div>
       </article>
     </div>
   </div>
@@ -635,9 +643,9 @@ footer .collab{background:rgba(255,255,255,.92)}
     <h2 class="h2 rv">Частые вопросы</h2>
     <div class="faq">
       <details><summary>Кому подойдёт курс?<span class="plus" aria-hidden="true"></span></summary><p>Разработчикам, тимлидам и архитекторам, которые уже пробуют AI-агентов и хотят предсказуемого результата. Нужен опыт с production-кодом, Git и code review.</p></details>
-      <details><summary>Нужно знать Spring?<span class="plus" aria-hidden="true"></span></summary><p>Нет. Курс про работу с AI-агентами, а не про фреймворк: подходы одинаково работают в любом стеке.</p></details>
+      <details><summary>Нужно знать Spring?<span class="plus" aria-hidden="true"></span></summary><p>Примеры курса — на Java и Spring Boot, так что опыт пригодится. Принципы работы с агентом от стека не зависят.</p></details>
       <details><summary>Пропущу занятие — что будет?<span class="plus" aria-hidden="true"></span></summary><p>Посмотрите запись в личном кабинете — записи и материалы доступны 3 месяца.</p></details>
-      <details><summary>Стану в 10 раз продуктивнее?<span class="plus" aria-hidden="true"></span></summary><p>Не обещаем. Научим измерять эффект на ваших задачах, а не верить маркетинговым цифрам.</p></details>
+      <details><summary>Стану в 10 раз продуктивнее?<span class="plus" aria-hidden="true"></span></summary><p>Не обещаем. Агент ускоряет тех, кто понимает, как он работает: даже больше размышлений модели не всегда даёт лучший ответ, но всегда стоит дороже.</p></details>
     </div>
   </div>
 </section>
@@ -793,7 +801,7 @@ footer .collab{background:rgba(255,255,255,.92)}
 
   /* Программа: стопка модулей следует за прокруткой */
   const pls=$$('.stack .pl'), mods=$$('.mod');
-  const setMod=i=>{pls.forEach(p=>{const k=+p.dataset.i;p.classList.toggle('on',k===i);p.classList.toggle('done',k<i)});$('#capName').textContent=mods[i].dataset.name;$('#capNo').textContent='модуль '+(i+1)+' из 4'};
+  const setMod=i=>{pls.forEach(p=>{const k=+p.dataset.i;p.classList.toggle('on',k===i);p.classList.toggle('done',k<i)});$('#capName').textContent=mods[i].dataset.name;$('#capNo').textContent='тема '+(i+1)+' из 5'};
   const mio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setMod(+e.target.dataset.i)}),{rootMargin:'-45% 0px -45% 0px'});
   mods.forEach(m=>mio.observe(m));
 
