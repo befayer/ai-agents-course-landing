@@ -160,7 +160,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .stack .pl text.n{font-family:var(--f-d);font-size:17px;font-weight:700;fill:#8fb898}
 .stack .pl text.l{font-family:var(--mono);font-size:13.5px;fill:#8fb898}
 .stack .pl .dot{fill:#3e6b47;transition:fill .6s ease}
-.stack .pl.on{transform:translateY(-22px)}
+.stack .pl.on{transform:translateY(-8px)}.stack .pl.done{transform:translateY(-30px)}
 .stack .pl.on .top-f{fill:var(--lime);stroke:var(--lime)}
 .stack .pl.on text.n{fill:var(--night)}.stack .pl.on text.l{fill:var(--lime)}.stack .pl.on .dot{fill:var(--lime)}.stack .pl.done text.l{fill:#cfe9c3}.stack .pl.done text.n{fill:#cfe9c3}
 .stack .pl.done .top-f{fill:#1d4a2a;stroke:var(--leaf)}
@@ -472,20 +472,21 @@ footer .collab{background:rgba(255,255,255,.92)}
 <!-- 2. Программа -->
 <section class="band" id="program">
   <div class="wrap">
-    <p class="eyebrow rv">программа · 5 тем</p>
+    <p class="eyebrow rv">программа · 6 тем</p>
     <h2 class="h2 scrub" style="margin-top:14px">От того, как устроен агент, до <span class="hl">проверок, которым можно доверять</span></h2>
     <div class="prog">
       <div class="prog-vis" aria-hidden="true">
         <div class="stack">
-          <svg viewBox="0 0 380 438">
-            <g class="pl" data-i="4"><path class="side-f" d="M22 372 v14 l96 48 v-14 z M118 434 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 324 L214 372 L118 420 L22 372 Z"/><text class="n" x="74" y="378" text-anchor="middle">05</text><circle class="dot" cx="222" cy="372" r="3"/><text class="l" x="232" y="377">guardrails</text></g>
-            <g class="pl" data-i="3"><path class="side-f" d="M22 298 v14 l96 48 v-14 z M118 360 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 250 L214 298 L118 346 L22 298 Z"/><text class="n" x="74" y="304" text-anchor="middle">04</text><circle class="dot" cx="222" cy="298" r="3"/><text class="l" x="232" y="303">возможности</text></g>
-            <g class="pl" data-i="2"><path class="side-f" d="M22 224 v14 l96 48 v-14 z M118 286 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 176 L214 224 L118 272 L22 224 Z"/><text class="n" x="74" y="230" text-anchor="middle">03</text><circle class="dot" cx="222" cy="224" r="3"/><text class="l" x="232" y="229">способы работы</text></g>
-            <g class="pl" data-i="1"><path class="side-f" d="M22 150 v14 l96 48 v-14 z M118 212 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 102 L214 150 L118 198 L22 150 Z"/><text class="n" x="74" y="156" text-anchor="middle">02</text><circle class="dot" cx="222" cy="150" r="3"/><text class="l" x="232" y="155">среда</text></g>
+          <svg viewBox="0 -32 380 478">
+            <g class="pl" data-i="5"><path class="side-f" d="M22 376 v14 l96 48 v-14 z M118 438 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 328 L214 376 L118 424 L22 376 Z"/><text class="n" x="74" y="382" text-anchor="middle">06</text><circle class="dot" cx="222" cy="376" r="3"/><text class="l" x="232" y="381">OpenSpec</text></g>
+            <g class="pl" data-i="4"><path class="side-f" d="M22 316 v14 l96 48 v-14 z M118 378 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 268 L214 316 L118 364 L22 316 Z"/><text class="n" x="74" y="322" text-anchor="middle">05</text><circle class="dot" cx="222" cy="316" r="3"/><text class="l" x="232" y="321">guardrails</text></g>
+            <g class="pl" data-i="3"><path class="side-f" d="M22 256 v14 l96 48 v-14 z M118 318 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 208 L214 256 L118 304 L22 256 Z"/><text class="n" x="74" y="262" text-anchor="middle">04</text><circle class="dot" cx="222" cy="256" r="3"/><text class="l" x="232" y="261">возможности</text></g>
+            <g class="pl" data-i="2"><path class="side-f" d="M22 196 v14 l96 48 v-14 z M118 258 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 148 L214 196 L118 244 L22 196 Z"/><text class="n" x="74" y="202" text-anchor="middle">03</text><circle class="dot" cx="222" cy="196" r="3"/><text class="l" x="232" y="201">способы работы</text></g>
+            <g class="pl" data-i="1"><path class="side-f" d="M22 136 v14 l96 48 v-14 z M118 198 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 88 L214 136 L118 184 L22 136 Z"/><text class="n" x="74" y="142" text-anchor="middle">02</text><circle class="dot" cx="222" cy="136" r="3"/><text class="l" x="232" y="141">среда</text></g>
             <g class="pl on" data-i="0"><path class="side-f" d="M22 76 v14 l96 48 v-14 z M118 138 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 28 L214 76 L118 124 L22 76 Z"/><text class="n" x="74" y="82" text-anchor="middle">01</text><circle class="dot" cx="222" cy="76" r="3"/><text class="l" x="232" y="81">устройство</text></g>
           </svg>
         </div>
-        <div class="stack-cap"><b id="capName">LLM и агенты</b><span id="capNo">тема 1 из 5</span></div>
+        <div class="stack-cap"><b id="capName">LLM и агенты</b><span id="capNo">тема 1 из 6</span></div>
       </div>
       <div class="mods">
         <article class="mod" data-i="0" data-name="LLM и агенты">
@@ -517,6 +518,12 @@ footer .collab{background:rgba(255,255,255,.92)}
           <h3>Guardrails: барьеры для агента</h3>
           <p>Автоматические проверки, которые падают, если код агента нарушает договорённости команды.</p>
           <ul><li>Spotless и Checkstyle</li><li>Тесты в два контура: unit и integration</li><li>ArchUnit: архитектура под тестом</li><li>Покрытие JaCoCo и мутационное тестирование PIT</li><li>Базовый сетап Spring Boot-проекта</li></ul>
+        </article>
+        <article class="mod" data-i="5" data-name="Расширение OpenSpec">
+          <span class="no">тема 06</span>
+          <h3>Расширение OpenSpec</h3>
+          <p>Настраиваем разработку по спецификациям под правила своей команды — от контекста проекта до автономного процесса.</p>
+          <ul><li>Контекст проекта и правила артефактов в config.yaml</li><li>Требования и сценарии, которые можно проверить</li><li>Свои шаблоны и собственная схема</li><li>Этап проверки спецификации с сабагентами</li><li>Автономный процесс и точки решения человека</li></ul>
         </article>
       </div>
     </div>
@@ -832,7 +839,7 @@ footer .collab{background:rgba(255,255,255,.92)}
 
   /* Программа: стопка модулей следует за прокруткой */
   const pls=$$('.stack .pl'), mods=$$('.mod');
-  const setMod=i=>{pls.forEach(p=>{const k=+p.dataset.i;p.classList.toggle('on',k===i);p.classList.toggle('done',k<i)});$('#capName').textContent=mods[i].dataset.name;$('#capNo').textContent='тема '+(i+1)+' из 5'};
+  const setMod=i=>{pls.forEach(p=>{const k=+p.dataset.i;p.classList.toggle('on',k===i);p.classList.toggle('done',k<i)});$('#capName').textContent=mods[i].dataset.name;$('#capNo').textContent='тема '+(i+1)+' из 6'};
   const mio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setMod(+e.target.dataset.i)}),{rootMargin:'-45% 0px -45% 0px'});
   mods.forEach(m=>mio.observe(m));
 
