@@ -147,38 +147,178 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .iso .bob{animation:bob 4s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-6px)}}
 
-/* ---------- Программа: липкая иллюстрация ---------- */
-.prog{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px;margin-top:64px}
-.prog-vis{position:sticky;top:110px;align-self:start;display:grid;gap:22px}
-.stack{background:var(--night);border-radius:32px;padding:34px;aspect-ratio:1/1;max-height:520px;display:grid;place-items:center;position:relative;overflow:hidden}
-.stack::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(195,245,60,.22),transparent);left:50%;top:50%;transform:translate(-50%,-50%)}
-.stack svg{width:100%;height:100%;min-height:0;position:relative;overflow:visible}
-.stack .pl{transition:transform .8s var(--ease)}
-.stack .pl .top-f{fill:#13301d;stroke:#3e6b47;stroke-width:1.2;transition:fill .6s ease,stroke .6s ease}
-.stack .pl .side-f{fill:#0c2213;stroke:#3e6b47;stroke-width:1.2}
-.stack .pl text{transition:fill .6s ease}
-.stack .pl text.n{font-family:var(--f-d);font-size:17px;font-weight:700;fill:#8fb898}
-.stack .pl text.l{font-family:var(--mono);font-size:13.5px;fill:#8fb898}
-.stack .pl .dot{fill:#3e6b47;transition:fill .6s ease}
-.stack .pl.on{transform:translateY(-8px)}.stack .pl.done{transform:translateY(-30px)}
-.stack .pl.on .top-f{fill:var(--lime);stroke:var(--lime)}
-.stack .pl.on text.n{fill:var(--night)}.stack .pl.on text.l{fill:var(--lime)}.stack .pl.on .dot{fill:var(--lime)}.stack .pl.done text.l{fill:#cfe9c3}.stack .pl.done text.n{fill:#cfe9c3}
-.stack .pl.done .top-f{fill:#1d4a2a;stroke:var(--leaf)}
-.stack-cap{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
-.stack-cap b{font-family:var(--f-d);font-size:22px;font-weight:600}
-.stack-cap span{font-family:var(--mono);font-size:15px;color:var(--muted)}
-.mods{display:grid;gap:28px}
-.mod{padding:30px 0;border-top:1px solid var(--line);transition:opacity .4s ease}
-.mod .no{font-family:var(--mono);font-size:15px;color:var(--green)}
-.mod h3{font-family:var(--f-d);font-size:clamp(26px,2.6vw,34px);font-weight:600;letter-spacing:-.025em;line-height:1.15;margin-top:8px}
-.mod>p{font-size:19px;color:var(--body);margin-top:12px}
-.soon{font-family:var(--f);font-size:15px;font-weight:600;color:#7a5200;background:#ffe9b8;padding:3px 10px;border-radius:999px;vertical-align:middle;margin-left:6px;letter-spacing:0}
-.mod ul{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:2px}
-.mod li{position:relative;padding:9px 0 9px 34px;font-size:18px;border-bottom:1px dashed var(--line)}
-.mod li:last-child{border-bottom:0}
-.mod li::before{content:"";position:absolute;left:8px;top:calc(9px + .5em);width:10px;height:10px;border-radius:50%;border:2px solid var(--green)}
-.mod li.opt::before{border-color:var(--violet-deep)}
-.mod li small{color:var(--muted);font-size:16px}
+/* ---------- Программа: закреплённый блок, темы меняются по прокрутке ---------- */
+@property --a1{syntax:"<color>";inherits:true;initial-value:#c3f53c}
+@property --a2{syntax:"<color>";inherits:true;initial-value:#5cc46a}
+.prog-sec{padding-bottom:40px}
+.pin{position:relative;margin-top:40px;--vh:min(560px,calc(100vh - 250px))}
+.js .pin{height:calc(100vh + 6 * 72vh)}
+.js .stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 0 28px}
+.rail{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:36px}
+.rail button{border:0;background:none;padding:0;text-align:left;cursor:pointer;display:grid;gap:10px;font-family:var(--f);font-size:15px;font-weight:500;line-height:1.25;color:var(--muted);transition:color .3s ease}
+.rail button:hover,.rail button.on{color:var(--ink)}
+.rail button b{font-family:var(--f-d);font-weight:600;margin-right:6px}
+.rail .bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.rail .bar::after{content:"";position:absolute;inset:0;border-radius:2px;background:linear-gradient(90deg,var(--a2),var(--a1));transform-origin:left;transform:scaleX(var(--f,0));transition:transform .15s linear}
+.topics{position:relative;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:64px;align-items:center;transition:--a1 .9s ease,--a2 .9s ease}
+.vframe{grid-column:2;grid-row:1;height:var(--vh);border-radius:32px;background:var(--night);position:relative;overflow:hidden;box-shadow:0 50px 90px -50px rgba(8,20,12,.75);
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:32px 32px}
+.vframe::before,.vframe::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.vframe::before{width:75%;aspect-ratio:1;left:-20%;top:-30%;background:radial-gradient(closest-side,color-mix(in srgb,var(--a1) 42%,transparent),transparent);animation:aur 13s ease-in-out infinite alternate}
+.vframe::after{width:70%;aspect-ratio:1;right:-22%;bottom:-32%;background:radial-gradient(closest-side,color-mix(in srgb,var(--a2) 34%,transparent),transparent);animation:aur2 17s ease-in-out infinite alternate}
+@keyframes aur{to{transform:translate(22%,26%) scale(1.15)}}
+@keyframes aur2{to{transform:translate(-26%,-18%) scale(1.2)}}
+.topic{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:inherit;gap:inherit;align-items:center;pointer-events:none}
+.topic.on{pointer-events:auto}
+.topic .txt{display:grid;gap:0;align-content:center}
+.topic .no{justify-self:start;display:inline-flex;align-items:center;gap:8px;font-family:var(--f);font-size:15px;font-weight:600;line-height:1;color:var(--ink);background:color-mix(in srgb,var(--acc) 34%,#fff);padding:8px 14px;border-radius:999px}
+.topic .no::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 1.5px var(--ink)}
+.topic h3{font-family:var(--f-d);font-size:clamp(28px,2.7vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:18px}
+.topic .txt>p{font-size:19px;line-height:1.5;color:var(--body);margin-top:14px;max-width:44ch}
+.topic ul{list-style:none;margin:22px 0 0;padding:0;display:grid}
+.topic li{position:relative;padding:9px 0 9px 30px;font-size:17.5px;line-height:1.4;border-bottom:1px dashed var(--line)}
+.topic li:last-child{border-bottom:0}
+.topic li::before{content:"";position:absolute;left:4px;top:calc(9px + .45em);width:10px;height:10px;border-radius:3px;background:var(--acc);box-shadow:0 0 0 1.5px var(--ink);transform:rotate(45deg)}
+.topic li small{color:var(--muted);font-size:15px}
+.topic .viz{grid-column:2;height:var(--vh);display:grid;place-items:center;padding:26px 28px;position:relative}
+.js .topic .txt>*{opacity:0;transform:translateY(26px);filter:blur(8px);transition:opacity .45s ease,transform .6s var(--ease),filter .45s ease}
+.js .topic.on .txt>*{opacity:1;transform:none;filter:none;transition-duration:.7s,.9s,.7s}
+.js .topic.on .txt>:nth-child(2){transition-delay:.06s}.js .topic.on .txt>:nth-child(3){transition-delay:.12s}.js .topic.on .txt>:nth-child(4){transition-delay:.18s}
+.js .topic .viz{opacity:0;transform:scale(.94) translateY(16px);transition:opacity .4s ease,transform .6s var(--ease)}
+.js .topic.on .viz{opacity:1;transform:none;transition:opacity .7s ease .12s,transform .9s var(--ease) .12s}
+
+/* схемы */
+.v{width:100%;height:100%;display:block;overflow:visible}
+.v text{font-family:var(--f);font-size:14px;fill:#d6e4d2}
+.v .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:14px}
+.v .cap{font-size:13px;fill:rgba(214,228,210,.55);letter-spacing:.02em}
+.v .lbl{font-size:13.5px;font-weight:600;fill:#eef5ea}
+.v .dk{fill:#08140c!important;font-weight:600}
+.v .box{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.22);stroke-width:1.2}
+.v .nbox{fill:var(--acc)}
+.v .accf{fill:var(--acc)}
+.v .accs{fill:none;stroke:var(--acc);stroke-width:2}
+.v .track{fill:rgba(255,255,255,.09)}
+.v .glow{filter:drop-shadow(0 0 10px var(--acc))}
+.v g,.v rect,.v circle,.v text{transform-box:fill-box}
+
+/* 1 — LLM и агенты */
+.topic.on .v1 .tk{animation:vzIn .5s var(--ease) var(--d) both}
+.topic.on .v1 .tk.new{animation:vzPop .7s cubic-bezier(.3,1.6,.5,1) var(--d) both}
+.v1 .caret{fill:var(--acc)}
+.topic.on .v1 .caret{animation:vzBlink 1s steps(1) infinite}
+.v1 .pb{fill:var(--acc);transform-origin:left center}
+.v1 .pb.lo{fill:rgba(195,245,60,.4)}
+.topic.on .v1 .pb{animation:vzGrow 1.1s var(--ease) var(--d) both}
+.v1 .ring{fill:none;stroke:rgba(255,255,255,.22);stroke-width:1.5;stroke-dasharray:5 7}
+.v1 .node{fill:#08140c;stroke:var(--acc);stroke-width:2}
+.v1 .orb{transform-box:view-box;transform-origin:260px 326px}
+.topic.on .v1 .orb{animation:vzRot 6s linear infinite}
+.v1 .ctr{font-family:var(--f-d);font-size:15px;font-weight:600;fill:#fff}
+@keyframes vzIn{from{opacity:0;transform:translateY(12px)}}
+@keyframes vzPop{from{opacity:0;transform:scale(.3)}}
+@keyframes vzBlink{50%{opacity:0}}
+@keyframes vzGrow{from{transform:scaleX(0)}}
+@keyframes vzRot{to{transform:rotate(360deg)}}
+
+/* 2 — Harness и среда */
+.v2 .wire{fill:none;stroke:var(--acc);stroke-width:1.6;stroke-dasharray:3 7;opacity:.75}
+.topic.on .v2 .wire{animation:vzDash 1.1s linear infinite}
+@keyframes vzDash{to{stroke-dashoffset:-10}}
+.v2 .ag .hi{fill:none;stroke:var(--acc);stroke-width:2;opacity:0}
+.topic.on .v2 .ag .hi{animation:vzAg 5s ease-in-out var(--d) infinite}
+@keyframes vzAg{0%,30%,100%{opacity:0}10%,20%{opacity:1}}
+.v2 .ag .cd{fill:var(--acc)}
+.topic.on .v2 .ln{animation:vzIn .5s var(--ease) var(--d) both}
+.v2 .t11{font-size:11.5px;fill:#0e1a12}
+.v2 .ok{fill:#2f7a1f;font-weight:600}
+
+/* 3 — Способы работы */
+.v3 .lane{stroke:rgba(255,255,255,.16);stroke-width:2}
+.v3 .nd{fill:#10241a;stroke:rgba(255,255,255,.24);stroke-width:1.2}
+.v3 .nd.rev{stroke:var(--acc);stroke-width:2}
+.v3 .bdg{fill:var(--acc)}
+.v3 .ckp{fill:none;stroke:#08140c;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.v3 .end{fill:#08140c;stroke:var(--acc);stroke-width:2.2}
+.v3 .end.bad{stroke:#ff7a59}
+.v3 .endt{fill:var(--acc);font-weight:700;font-size:15px}
+.v3 .bad+.endt{fill:#ff7a59}
+.v3 .run{fill:#fff;filter:drop-shadow(0 0 8px #fff)}
+.topic.on .v3 .run{animation:vzRun 4.2s cubic-bezier(.6,0,.4,1) var(--d) infinite}
+@keyframes vzRun{0%{transform:translateX(0);opacity:0}6%{opacity:1}88%{opacity:1}100%{transform:translateX(408px);opacity:0}}
+.topic.on .v3 .bg{animation:vzPulse 2.4s ease-in-out var(--d) infinite;transform-origin:center}
+@keyframes vzPulse{50%{transform:scale(1.18)}}
+.v3 .sm{font-size:12px;fill:rgba(214,228,210,.6)}
+
+/* 4 — Возможности harness */
+.v4 .orbit{fill:none;stroke:rgba(255,255,255,.18);stroke-width:1.4;stroke-dasharray:4 8;transform-origin:center}
+.topic.on .v4 .orbit{animation:vzRot 50s linear infinite}
+.v4 .spoke{stroke:rgba(255,255,255,.14);stroke-width:1.4}
+.v4 .sp{stroke:var(--acc);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:14 170;stroke-dashoffset:14;opacity:0}
+.topic.on .v4 .sp{animation:vzSp 3s ease-in var(--d) infinite}
+@keyframes vzSp{0%{stroke-dashoffset:14;opacity:1}85%{opacity:1}100%{stroke-dashoffset:-150;opacity:0}}
+.v4 .chip{fill:#10241a;stroke:rgba(255,255,255,.26);stroke-width:1.2}
+.v4 .chhi{fill:color-mix(in srgb,var(--acc) 22%,transparent);stroke:var(--acc);stroke-width:2;opacity:0}
+.topic.on .v4 .chhi{animation:vzAg 3s ease-in-out var(--d) infinite}
+.v4 .core{fill:var(--acc)}
+.topic.on .v4 .core{animation:vzPulse 2.2s ease-in-out infinite;transform-origin:center}
+.v4 .gfill{fill:var(--acc);transform-origin:left center;transform:scaleX(.4)}
+.topic.on .v4 .gfill{animation:vzGauge 7s ease-in-out infinite}
+@keyframes vzGauge{0%{transform:scaleX(.14)}68%,73%{transform:scaleX(.88)}80%{transform:scaleX(.34)}100%{transform:scaleX(.4)}}
+.v4 .cmp{fill:var(--acc);font-weight:600}
+.topic.on .v4 .cmp{animation:vzCmp 7s ease-in-out infinite}
+@keyframes vzCmp{0%,70%{opacity:0}75%,92%{opacity:1}100%{opacity:0}}
+
+/* 5 — Guardrails */
+.v5 .rail5{stroke:rgba(255,255,255,.16);stroke-width:2;stroke-dasharray:4 6}
+.v5 .gate{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.2);stroke-width:1.2}
+.v5 .pass rect{fill:rgba(92,196,106,.16);stroke:#5cc46a;stroke-width:1.8}
+.v5 .pass text{fill:#8fe39a;font-size:17px;font-weight:700}
+.v5 .fail rect{fill:rgba(255,122,89,.18);stroke:#ff7a59;stroke-width:1.8}
+.v5 .fail text{fill:#ff8f73;font-size:17px;font-weight:700}
+.v5 .fail{opacity:0}
+.v5 .fix{fill:#ff8f73;font-size:12.5px;font-weight:600;opacity:0}
+.v5 .mainp rect{fill:rgba(195,245,60,.16);stroke:#c3f53c;stroke-width:2}
+.v5 .mainp text{fill:#c3f53c;font-weight:700}
+.v5 .card5{transform:translateY(322px)}
+.v5 .card5 rect{fill:#fff}
+.topic.on .v5 .card5{animation:vzCard 10s ease-in-out infinite}
+@keyframes vzCard{0%{transform:translateY(-30px);opacity:0}5%{transform:translateY(0);opacity:1}14%{transform:translateY(0)}18%,24%{transform:translateY(52px)}28%,34%{transform:translateY(104px)}38%{transform:translateY(156px)}41%{transform:translate(-8px,156px)}44%{transform:translate(8px,156px)}47%{transform:translate(-4px,156px)}50%,52%{transform:translateY(156px)}56%,62%{transform:translateY(208px)}66%,72%{transform:translateY(260px)}78%,94%{transform:translateY(322px);opacity:1}100%{transform:translateY(322px);opacity:0}}
+.topic.on .v5 .fail,.topic.on .v5 .fix{animation:vzFail 10s linear infinite}
+@keyframes vzFail{0%,39%{opacity:0}40%,51%{opacity:1}52%,100%{opacity:0}}
+.topic.on .v5 .g0{animation:vzG0 10s linear infinite}@keyframes vzG0{0%,13%{opacity:0}14%,96%{opacity:1}100%{opacity:0}}
+.topic.on .v5 .g1{animation:vzG1 10s linear infinite}@keyframes vzG1{0%,23%{opacity:0}24%,96%{opacity:1}100%{opacity:0}}
+.topic.on .v5 .g2{animation:vzG2 10s linear infinite}@keyframes vzG2{0%,33%{opacity:0}34%,96%{opacity:1}100%{opacity:0}}
+.topic.on .v5 .g3{animation:vzG3 10s linear infinite}@keyframes vzG3{0%,51%{opacity:0}52%,96%{opacity:1}100%{opacity:0}}
+.topic.on .v5 .g4{animation:vzG4 10s linear infinite}@keyframes vzG4{0%,61%{opacity:0}62%,96%{opacity:1}100%{opacity:0}}
+.topic.on .v5 .g5{animation:vzG5 10s linear infinite}@keyframes vzG5{0%,71%{opacity:0}72%,96%{opacity:1}100%{opacity:0}}
+.topic.on .v5 .g6{animation:vzG6 10s linear infinite}@keyframes vzG6{0%,79%{opacity:0}80%,96%{opacity:1}100%{opacity:0}}
+
+/* 6 — OpenSpec */
+.v6 .tr{font-size:13.5px}
+.v6 .dim{fill:rgba(214,228,210,.5)}
+.v6 .tag{fill:var(--acc)}
+.v6 .tag2{fill:#8b7bff}
+.v6 .pill{fill:#10241a;stroke:rgba(255,255,255,.24);stroke-width:1.2}
+.v6 .pon rect{fill:color-mix(in srgb,var(--acc) 20%,transparent);stroke:var(--acc);stroke-width:2}
+.topic.on .v6 .pon{animation:var(--k) 9s linear infinite}
+@keyframes vzP0{0%,32%{opacity:1}34%,100%{opacity:0}}
+@keyframes vzP1{0%,32%{opacity:0}34%,65%{opacity:1}67%,100%{opacity:0}}
+@keyframes vzP2{0%,65%{opacity:0}67%,98%{opacity:1}100%{opacity:0}}
+.v6 .arr{stroke:rgba(255,255,255,.3);stroke-width:1.6;fill:none}
+.v6 .rv6{fill:var(--acc);font-size:12.5px;font-weight:600}
+.topic.on .v6 .fl{animation:vzFile 9s ease var(--d) infinite}
+@keyframes vzFile{0%{opacity:0;transform:translateX(-8px)}5%,90%{opacity:1;transform:none}100%{opacity:0}}
+.v6 .tick{fill:#8fe39a;font-weight:700}
+.topic.on .v6 .tick{animation:vzTick 9s linear infinite}
+@keyframes vzTick{0%,44%{opacity:0}48%,90%{opacity:1}100%{opacity:0}}
+.v6 .dchip rect{fill:var(--acc)}
+.v6 .dchip{opacity:0}
+.topic.on .v6 .dchip{animation:vzDelta 9s ease-in-out infinite}
+@keyframes vzDelta{0%,20%{opacity:0;transform:translateY(0)}24%,70%{opacity:1;transform:translateY(0)}80%{opacity:1;transform:translateY(-150px)}88%,100%{opacity:0;transform:translateY(-150px)}}
+.v6 .arch{fill:var(--acc);opacity:0}
+.topic.on .v6 .arch{animation:vzArch 9s linear infinite}
+@keyframes vzArch{0%,82%{opacity:0}86%,96%{opacity:1}100%{opacity:0}}
 
 /* ---------- Как проходит обучение ---------- */
 .format{background:var(--night);color:#eef3ec;position:relative;overflow:hidden}
@@ -373,9 +513,7 @@ footer .collab{background:rgba(255,255,255,.92)}
 @media (max-width:1100px){
   .top nav{display:none}.top .btn{margin-left:auto}
   .ticket{position:static;justify-items:start;margin-top:40px}
-  .prog{grid-template-columns:minmax(0,1fr);gap:40px}
   .why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .prog-vis{position:static;max-width:460px}
   .journey{grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px}
   .big-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -397,6 +535,17 @@ footer .collab{background:rgba(255,255,255,.92)}
   .step b{margin-top:10px}
   .step span.d,.step.on span.d{max-height:none;opacity:.72;margin-top:6px}
   .step .bar,.step.on .bar{display:none}
+}
+/* Программа без закрепления: телефон, планшет и низкие экраны */
+@media (max-width:900px),(max-height:620px){
+  .js .pin{height:auto}
+  .js .stage{position:static;height:auto;padding:0}
+  .rail,.vframe{display:none}
+  .topics{grid-template-columns:minmax(0,1fr);gap:64px}
+  .topic{grid-column:auto;grid-row:auto;grid-template-columns:minmax(0,1fr);gap:22px;pointer-events:auto}
+  .topic .viz{grid-column:auto;order:-1;height:auto;aspect-ratio:520/440;border-radius:24px;padding:14px;background:var(--night);
+    background-image:radial-gradient(circle at 15% 10%,color-mix(in srgb,var(--acc) 26%,transparent),transparent 55%),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:auto,28px 28px,28px 28px}
+  .js .topic .txt>*,.js .topic .viz{opacity:1;transform:none;filter:none}
 }
 @media (max-width:640px){
   body{font-size:18px}
@@ -470,61 +619,188 @@ footer .collab{background:rgba(255,255,255,.92)}
 </section>
 
 <!-- 2. Программа -->
-<section class="band" id="program">
+<section class="band prog-sec" id="program">
   <div class="wrap">
     <p class="eyebrow rv">программа · 6 тем</p>
     <h2 class="h2 scrub" style="margin-top:14px">От того, как устроен агент, до <span class="hl">проверок, которым можно доверять</span></h2>
-    <div class="prog">
-      <div class="prog-vis" aria-hidden="true">
-        <div class="stack">
-          <svg viewBox="0 -32 380 478">
-            <g class="pl" data-i="5"><path class="side-f" d="M22 376 v14 l96 48 v-14 z M118 438 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 328 L214 376 L118 424 L22 376 Z"/><text class="n" x="74" y="382" text-anchor="middle">06</text><circle class="dot" cx="222" cy="376" r="3"/><text class="l" x="232" y="381">OpenSpec</text></g>
-            <g class="pl" data-i="4"><path class="side-f" d="M22 316 v14 l96 48 v-14 z M118 378 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 268 L214 316 L118 364 L22 316 Z"/><text class="n" x="74" y="322" text-anchor="middle">05</text><circle class="dot" cx="222" cy="316" r="3"/><text class="l" x="232" y="321">guardrails</text></g>
-            <g class="pl" data-i="3"><path class="side-f" d="M22 256 v14 l96 48 v-14 z M118 318 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 208 L214 256 L118 304 L22 256 Z"/><text class="n" x="74" y="262" text-anchor="middle">04</text><circle class="dot" cx="222" cy="256" r="3"/><text class="l" x="232" y="261">возможности</text></g>
-            <g class="pl" data-i="2"><path class="side-f" d="M22 196 v14 l96 48 v-14 z M118 258 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 148 L214 196 L118 244 L22 196 Z"/><text class="n" x="74" y="202" text-anchor="middle">03</text><circle class="dot" cx="222" cy="196" r="3"/><text class="l" x="232" y="201">способы работы</text></g>
-            <g class="pl" data-i="1"><path class="side-f" d="M22 136 v14 l96 48 v-14 z M118 198 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 88 L214 136 L118 184 L22 136 Z"/><text class="n" x="74" y="142" text-anchor="middle">02</text><circle class="dot" cx="222" cy="136" r="3"/><text class="l" x="232" y="141">среда</text></g>
-            <g class="pl on" data-i="0"><path class="side-f" d="M22 76 v14 l96 48 v-14 z M118 138 l96 -48 v-14 l-96 48 z"/><path class="top-f" d="M118 28 L214 76 L118 124 L22 76 Z"/><text class="n" x="74" y="82" text-anchor="middle">01</text><circle class="dot" cx="222" cy="76" r="3"/><text class="l" x="232" y="81">устройство</text></g>
-          </svg>
+  </div>
+  <div class="pin" id="pin">
+    <div class="stage">
+      <div class="wrap">
+        <nav class="rail" id="rail" aria-label="Темы программы">
+          <button type="button" class="on"><span class="bar"></span><span><b>01</b>LLM и агенты</span></button>
+          <button type="button"><span class="bar"></span><span><b>02</b>Harness и среда</span></button>
+          <button type="button"><span class="bar"></span><span><b>03</b>Способы работы</span></button>
+          <button type="button"><span class="bar"></span><span><b>04</b>Возможности</span></button>
+          <button type="button"><span class="bar"></span><span><b>05</b>Guardrails</span></button>
+          <button type="button"><span class="bar"></span><span><b>06</b>OpenSpec</span></button>
+        </nav>
+        <div class="topics" id="topics">
+          <div class="vframe" aria-hidden="true"></div>
+          <article class="topic on" style="--acc:#c3f53c" aria-label="Тема 01. Как устроены LLM и агенты">
+            <div class="txt"><span class="no">тема 01</span><h3>Как устроены LLM и агенты</h3><p>Что происходит между промптом и ответом — и почему от этого зависят качество и цена.</p><ul><li>Токены, temperature и размышления</li><li>Больше размышлений — не значит лучше ответ</li><li>Кэш промпта: как не платить дважды</li><li>Function calling и агентский цикл</li><li>Контекст — единственная память модели</li></ul></div>
+            <div class="viz"><svg class="v v1" viewBox="0 0 520 440" aria-hidden="true">
+  <text class="cap" x="28" y="32">промпт → модель предсказывает следующий токен</text>
+  <g class="tk" style="--d:.1s"><rect class="box" x="28" y="50" width="86" height="36" rx="10"/><text class="mono" x="71" y="73" text-anchor="middle">System</text></g>
+  <g class="tk" style="--d:.35s"><rect class="box" x="122" y="50" width="58" height="36" rx="10"/><text class="mono" x="151" y="73" text-anchor="middle">.out</text></g>
+  <g class="tk" style="--d:.6s"><rect class="box" x="188" y="50" width="96" height="36" rx="10"/><text class="mono" x="236" y="73" text-anchor="middle">.println</text></g>
+  <g class="tk new" style="--d:2.2s"><rect class="nbox glow" x="292" y="50" width="40" height="36" rx="10"/><text class="mono dk" x="312" y="74" text-anchor="middle">(</text></g>
+  <rect class="caret" x="342" y="56" width="3" height="24" rx="1.5"/>
+  <text class="mono" x="40" y="132" text-anchor="middle">(</text><rect class="track" x="64" y="120" width="330" height="16" rx="8"/><rect class="pb" style="--d:.9s" x="64" y="120" width="271" height="16" rx="8"/><text x="406" y="133">82%</text>
+  <text class="mono" x="40" y="164" text-anchor="middle">;</text><rect class="track" x="64" y="152" width="330" height="16" rx="8"/><rect class="pb lo" style="--d:1.05s" x="64" y="152" width="36" height="16" rx="8"/><text x="406" y="165">11%</text>
+  <text class="mono" x="40" y="196" text-anchor="middle">"</text><rect class="track" x="64" y="184" width="330" height="16" rx="8"/><rect class="pb lo" style="--d:1.2s" x="64" y="184" width="23" height="16" rx="8"/><text x="406" y="197">7%</text>
+  <circle class="ring" cx="260" cy="326" r="78"/>
+  <circle class="node" cx="260" cy="248" r="5"/><text x="260" y="232" text-anchor="middle">модель решает, что делать</text>
+  <circle class="node" cx="338" cy="326" r="5"/><text x="352" y="331">вызывает инструмент</text>
+  <circle class="node" cx="260" cy="404" r="5"/><text x="260" y="430" text-anchor="middle">получает результат</text>
+  <circle class="node" cx="182" cy="326" r="5"/><text x="168" y="331" text-anchor="end">дополняет контекст</text>
+  <g class="orb"><circle class="accf glow" cx="260" cy="248" r="8"/></g>
+  <text class="ctr" x="260" y="322" text-anchor="middle">агентский</text><text class="ctr" x="260" y="342" text-anchor="middle">цикл</text>
+</svg></div>
+          </article>
+          <article class="topic" style="--acc:#8b7bff" aria-label="Тема 02. Harness и рабочая среда">
+            <div class="txt"><span class="no">тема 02</span><h3>Harness и рабочая среда</h3><p>Что агент умеет из коробки и как собрать рабочее место, где он видит весь проект.</p><ul><li>Claude Code как harness</li><li>OpenIDE: любые агенты в одной IDE</li><li>Базовый сетап OpenIDE + Claude Code</li></ul></div>
+            <div class="viz"><svg class="v v2" viewBox="0 0 520 440" aria-hidden="true">
+  <text class="cap" x="28" y="32">один harness в IDE — любые агенты</text>
+  <path class="wire" d="M96 84 C96 106 260 100 260 122"/>
+  <path class="wire" d="M200 84 C200 106 260 100 260 122"/>
+  <path class="wire" d="M289 84 C289 106 260 100 260 122"/>
+  <path class="wire" d="M386 84 C386 106 260 100 260 122"/>
+  <path class="wire" d="M461 84 C461 106 260 100 260 122"/>
+  <g class="ag" style="--d:0s"><rect class="box" x="40" y="50" width="112" height="34" rx="17"/><rect class="hi" x="40" y="50" width="112" height="34" rx="17"/><circle class="cd" cx="55" cy="67" r="4"/><text x="65" y="72">Claude Code</text></g>
+  <g class="ag" style="--d:1s"><rect class="box" x="162" y="50" width="76" height="34" rx="17"/><rect class="hi" x="162" y="50" width="76" height="34" rx="17"/><circle class="cd" cx="177" cy="67" r="4"/><text x="187" y="72">Codex</text></g>
+  <g class="ag" style="--d:2s"><rect class="box" x="248" y="50" width="82" height="34" rx="17"/><rect class="hi" x="248" y="50" width="82" height="34" rx="17"/><circle class="cd" cx="263" cy="67" r="4"/><text x="273" y="72">Cursor</text></g>
+  <g class="ag" style="--d:3s"><rect class="box" x="340" y="50" width="92" height="34" rx="17"/><rect class="hi" x="340" y="50" width="92" height="34" rx="17"/><circle class="cd" cx="355" cy="67" r="4"/><text x="365" y="72">ChatGPT</text></g>
+  <g class="ag" style="--d:4s"><rect class="box" x="442" y="50" width="38" height="34" rx="17"/><rect class="hi" x="442" y="50" width="38" height="34" rx="17"/><text x="461" y="72" text-anchor="middle">+</text></g>
+  <defs><clipPath id="ideClip"><rect x="40" y="122" width="440" height="258" rx="14"/></clipPath></defs>
+  <g clip-path="url(#ideClip)">
+    <rect x="40" y="122" width="440" height="258" fill="#f4f6f1"/>
+    <rect x="40" y="122" width="440" height="34" fill="#e3e9df"/>
+    <circle cx="60" cy="139" r="5" fill="#ff5f57"/><circle cx="76" cy="139" r="5" fill="#febc2e"/><circle cx="92" cy="139" r="5" fill="#28c840"/>
+    <image href="assets/openide-logo.svg" x="222" y="129" width="76" height="20"/>
+    <rect x="40" y="156" width="100" height="224" fill="#eaefe6"/>
+    <rect x="54" y="172" width="62" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="192" width="48" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="212" width="70" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="232" width="54" height="7" rx="3.5" fill="#8b7bff"/><rect x="54" y="252" width="64" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="272" width="44" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="292" width="58" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="312" width="50" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="332" width="40" height="7" rx="3.5" fill="#c9d4c4"/><rect x="54" y="352" width="60" height="7" rx="3.5" fill="#c9d4c4"/>
+    <rect x="152" y="172" width="120" height="9" rx="4.5" fill="#dce3d8"/><rect x="152" y="190" width="150" height="9" rx="4.5" fill="#dce3d8"/><rect x="152" y="208" width="96" height="9" rx="4.5" fill="#dce3d8"/><rect x="152" y="226" width="160" height="9" rx="4.5" fill="#dce3d8"/><rect class="ln" style="--d:1.6s" x="152" y="244" width="140" height="9" rx="4.5" fill="#a9df98"/><rect class="ln" style="--d:1.85s" x="152" y="262" width="118" height="9" rx="4.5" fill="#a9df98"/><rect class="ln" style="--d:2.1s" x="152" y="280" width="132" height="9" rx="4.5" fill="#f4bfb1"/><rect x="152" y="298" width="88" height="9" rx="4.5" fill="#dce3d8"/><rect x="152" y="316" width="150" height="9" rx="4.5" fill="#dce3d8"/><rect x="152" y="334" width="110" height="9" rx="4.5" fill="#dce3d8"/><rect x="152" y="352" width="70" height="9" rx="4.5" fill="#dce3d8"/>
+    <rect x="338" y="164" width="134" height="208" rx="10" fill="#fff" stroke="#dfe6db"/>
+    <g class="ln" style="--d:.4s"><rect x="378" y="174" width="86" height="26" rx="9" fill="#dff5c0"/><text class="t11" x="421" y="191" text-anchor="middle">добавь поле</text></g>
+    <text class="t11 ln" style="--d:.8s" x="350" y="222">• читает 4 файла</text>
+    <text class="t11 ln" style="--d:1.2s" x="350" y="244">• правит 2 файла</text>
+    <text class="t11 ln" style="--d:1.7s" x="350" y="266">• запускает тесты</text>
+    <text class="t11 ok ln" style="--d:2.3s" x="350" y="288">✓ тесты прошли</text>
+    <g class="ln" style="--d:2.6s"><rect x="346" y="302" width="118" height="56" rx="8" fill="#f2f5f0"/><text class="t11" x="356" y="324">OrderService.java</text><text class="t11 ok" x="356" y="346">+12 −3 · дифф</text></g>
+  </g>
+  <g><rect class="box" x="40" y="396" width="104" height="30" rx="15"/><text x="92" y="416" text-anchor="middle">worktree</text></g>
+  <g><rect class="box" x="152" y="396" width="104" height="30" rx="15"/><text x="204" y="416" text-anchor="middle">терминал</text></g>
+  <g><rect class="box" x="264" y="396" width="104" height="30" rx="15"/><text x="316" y="416" text-anchor="middle">браузер</text></g>
+  <g><rect class="box" x="376" y="396" width="104" height="30" rx="15"/><text x="428" y="416" text-anchor="middle">сабагенты</text></g>
+</svg></div>
+          </article>
+          <article class="topic" style="--acc:#3fd0b0" aria-label="Тема 03. Три способа вести разработку">
+            <div class="txt"><span class="no">тема 03</span><h3>Три способа вести разработку</h3><p>Где проверять работу агента: в готовом результате, в плане или ещё на этапе обсуждения.</p><ul><li>Промпт → результат: когда хватает одного промпта</li><li>Разработка через план: ошибку понимания ловим до кода</li><li>Сначала обсудить: детали, ожидания, бизнес-правила</li><li>Как выбрать способ под задачу</li></ul></div>
+            <div class="viz"><svg class="v v3" viewBox="0 0 520 440" aria-hidden="true">
+  <text class="lbl" x="28" y="78">Промпт → результат</text>
+  <line class="lane" x1="40" y1="110" x2="448" y2="110"/><circle class="run" style="--d:0s" cx="40" cy="110" r="6"/>
+  <rect class="nd" x="40" y="92" width="92" height="36" rx="18"/><text x="86" y="115" text-anchor="middle">промпт</text>
+  <rect class="nd" x="178" y="92" width="130" height="36" rx="18"/><text x="243" y="115" text-anchor="middle">код агента</text>
+  <circle class="end bad" cx="448" cy="110" r="17"/><text class="endt" x="448" y="115" text-anchor="middle">!</text>
+  <text class="sm" x="474" y="108">весь</text><text class="sm" x="474" y="124">дифф</text>
+  <text class="lbl" x="28" y="190">Разработка через план</text>
+  <line class="lane" x1="40" y1="222" x2="448" y2="222"/><circle class="run" style="--d:-1.3s" cx="40" cy="222" r="6"/>
+  <rect class="nd" x="40" y="204" width="92" height="36" rx="18"/><text x="86" y="227" text-anchor="middle">промпт</text>
+  <rect class="nd rev" x="164" y="204" width="84" height="36" rx="18"/><text x="206" y="227" text-anchor="middle">план</text>
+  <g class="bg" style="--d:-1.3s"><circle class="bdg" cx="242" cy="205" r="10"/><path class="ckp" d="M237.4 205.2 l3.2 3.2 l6 -6.4"/></g>
+  <rect class="nd" x="282" y="204" width="76" height="36" rx="18"/><text x="320" y="227" text-anchor="middle">код</text>
+  <circle class="end" cx="448" cy="222" r="17"/><text class="endt" x="448" y="227" text-anchor="middle">✓</text>
+  <text class="sm" x="474" y="227">дифф</text>
+  <text class="lbl" x="28" y="302">Сначала обсудить</text>
+  <line class="lane" x1="40" y1="334" x2="448" y2="334"/><circle class="run" style="--d:-2.6s" cx="40" cy="334" r="6"/>
+  <rect class="nd rev" x="40" y="316" width="128" height="36" rx="18"/><text x="104" y="339" text-anchor="middle">обсуждение</text>
+  <g class="bg" style="--d:-2.6s"><circle class="bdg" cx="162" cy="317" r="10"/><path class="ckp" d="M157.4 317.2 l3.2 3.2 l6 -6.4"/></g>
+  <rect class="nd rev" x="200" y="316" width="84" height="36" rx="18"/><text x="242" y="339" text-anchor="middle">план</text>
+  <g class="bg" style="--d:-2.6s"><circle class="bdg" cx="278" cy="317" r="10"/><path class="ckp" d="M273.4 317.2 l3.2 3.2 l6 -6.4"/></g>
+  <rect class="nd" x="316" y="316" width="76" height="36" rx="18"/><text x="354" y="339" text-anchor="middle">код</text>
+  <circle class="end" cx="448" cy="334" r="17"/><text class="endt" x="448" y="339" text-anchor="middle">✓</text>
+  <text class="sm" x="474" y="339">дифф</text>
+  <text class="cap" x="28" y="420">где вы проверяете агента — чем раньше, тем дешевле ошибка</text>
+</svg></div>
+          </article>
+          <article class="topic" style="--acc:#ffb547" aria-label="Тема 04. Возможности harness">
+            <div class="txt"><span class="no">тема 04</span><h3>Возможности harness</h3><p>Из коробки агент знает всё в общем и ничего — про ваш проект. Учим его вашему проекту.</p><ul><li>Управление контекстом <small>· /compact, /rewind, /context</small></li><li>CLAUDE.md и AGENTS.md</li><li>Скиллы и MCP-серверы</li><li>Сабагенты и параллельная работа в worktree</li><li>Хуки и разрешения</li></ul></div>
+            <div class="viz"><svg class="v v4" viewBox="0 0 520 440" aria-hidden="true">
+  <circle class="orbit" cx="260" cy="214" r="150"/>
+  <line class="spoke" x1="260" y1="64" x2="260" y2="214"/><line class="sp" style="--d:0s" x1="260" y1="64" x2="260" y2="214"/><line class="spoke" x1="390" y1="139" x2="260" y2="214"/><line class="sp" style="--d:0.5s" x1="390" y1="139" x2="260" y2="214"/><line class="spoke" x1="390" y1="289" x2="260" y2="214"/><line class="sp" style="--d:1s" x1="390" y1="289" x2="260" y2="214"/><line class="spoke" x1="260" y1="364" x2="260" y2="214"/><line class="sp" style="--d:1.5s" x1="260" y1="364" x2="260" y2="214"/><line class="spoke" x1="130" y1="289" x2="260" y2="214"/><line class="sp" style="--d:2s" x1="130" y1="289" x2="260" y2="214"/><line class="spoke" x1="130" y1="139" x2="260" y2="214"/><line class="sp" style="--d:2.5s" x1="130" y1="139" x2="260" y2="214"/>
+  <circle class="core glow" cx="260" cy="214" r="46"/>
+  <text class="dk" x="260" y="210" text-anchor="middle" style="font-family:var(--f-d);font-size:15px">агент</text>
+  <text class="dk" x="260" y="229" text-anchor="middle" style="font-size:12px;font-weight:500">+ ваш проект</text>
+  <g><rect class="chip" x="202" y="47" width="116" height="34" rx="17"/><rect class="chhi" style="--d:0s" x="202" y="47" width="116" height="34" rx="17"/><text x="260" y="69" text-anchor="middle">CLAUDE.md</text></g><g><rect class="chip" x="332" y="122" width="116" height="34" rx="17"/><rect class="chhi" style="--d:0.5s" x="332" y="122" width="116" height="34" rx="17"/><text x="390" y="144" text-anchor="middle">Скиллы</text></g><g><rect class="chip" x="332" y="272" width="116" height="34" rx="17"/><rect class="chhi" style="--d:1s" x="332" y="272" width="116" height="34" rx="17"/><text x="390" y="294" text-anchor="middle">MCP</text></g><g><rect class="chip" x="202" y="347" width="116" height="34" rx="17"/><rect class="chhi" style="--d:1.5s" x="202" y="347" width="116" height="34" rx="17"/><text x="260" y="369" text-anchor="middle">Сабагенты</text></g><g><rect class="chip" x="72" y="272" width="116" height="34" rx="17"/><rect class="chhi" style="--d:2s" x="72" y="272" width="116" height="34" rx="17"/><text x="130" y="294" text-anchor="middle">Worktree</text></g><g><rect class="chip" x="72" y="122" width="116" height="34" rx="17"/><rect class="chhi" style="--d:2.5s" x="72" y="122" width="116" height="34" rx="17"/><text x="130" y="144" text-anchor="middle">Хуки</text></g>
+  <text class="cap" x="28" y="417">контекст</text>
+  <rect class="track" x="100" y="406" width="300" height="12" rx="6"/>
+  <rect class="gfill" x="100" y="406" width="300" height="12" rx="6"/>
+  <text class="cmp mono" x="414" y="417">/compact</text>
+</svg></div>
+          </article>
+          <article class="topic" style="--acc:#ff7a59" aria-label="Тема 05. Guardrails: барьеры для агента">
+            <div class="txt"><span class="no">тема 05</span><h3>Guardrails: барьеры для агента</h3><p>Автоматические проверки, которые падают, если код агента нарушает договорённости команды.</p><ul><li>Spotless и Checkstyle</li><li>Тесты в два контура: unit и integration</li><li>ArchUnit: архитектура под тестом</li><li>Покрытие JaCoCo и мутационное тестирование PIT</li><li>Базовый сетап Spring Boot-проекта</li></ul></div>
+            <div class="viz"><svg class="v v5" viewBox="0 0 520 440" aria-hidden="true">
+  <text class="cap" x="28" y="32">каждое изменение агента проходит через барьеры</text>
+  <line class="rail5" x1="96" y1="52" x2="96" y2="410"/>
+  <rect class="gate" x="170" y="50" width="320" height="40" rx="12"/>
+  <g class="pass g0"><rect x="170" y="50" width="320" height="40" rx="12"/><text x="468" y="76" text-anchor="middle">✓</text></g>
+  <text x="190" y="75">Spotless · формат</text>
+  <rect class="gate" x="170" y="102" width="320" height="40" rx="12"/>
+  <g class="pass g1"><rect x="170" y="102" width="320" height="40" rx="12"/><text x="468" y="128" text-anchor="middle">✓</text></g>
+  <text x="190" y="127">Checkstyle · стиль</text>
+  <rect class="gate" x="170" y="154" width="320" height="40" rx="12"/>
+  <g class="pass g2"><rect x="170" y="154" width="320" height="40" rx="12"/><text x="468" y="180" text-anchor="middle">✓</text></g>
+  <text x="190" y="179">Unit + Integration</text>
+  <rect class="gate" x="170" y="206" width="320" height="40" rx="12"/>
+  <g class="pass g3"><rect x="170" y="206" width="320" height="40" rx="12"/><text x="468" y="232" text-anchor="middle">✓</text></g>
+  <g class="fail"><rect x="170" y="206" width="320" height="40" rx="12"/><text x="468" y="232" text-anchor="middle">✗</text></g>
+  <text x="190" y="231">ArchUnit · слои</text>
+  <rect class="gate" x="170" y="258" width="320" height="40" rx="12"/>
+  <g class="pass g4"><rect x="170" y="258" width="320" height="40" rx="12"/><text x="468" y="284" text-anchor="middle">✓</text></g>
+  <text x="190" y="283">JaCoCo · покрытие</text>
+  <rect class="gate" x="170" y="310" width="320" height="40" rx="12"/>
+  <g class="pass g5"><rect x="170" y="310" width="320" height="40" rx="12"/><text x="468" y="336" text-anchor="middle">✓</text></g>
+  <text x="190" y="335">PIT · сила тестов</text>
+  <rect class="gate" x="170" y="372" width="320" height="40" rx="12"/>
+  <g class="mainp g6"><rect x="170" y="372" width="320" height="40" rx="12"/><text x="468" y="397" text-anchor="end">чистый дифф → ревью</text></g>
+  <text class="lbl" x="190" y="397">main</text>
+  <text class="fix" x="96" y="264" text-anchor="middle">агент правит</text>
+  <g class="card5"><rect x="40" y="52" width="112" height="36" rx="10"/><text class="mono dk" x="96" y="75" text-anchor="middle">+128 −14</text></g>
+</svg></div>
+          </article>
+          <article class="topic" style="--acc:#c3f53c" aria-label="Тема 06. OpenSpec: разработка через спецификацию">
+            <div class="txt"><span class="no">тема 06</span><h3>OpenSpec: разработка через спецификацию</h3><p>Когда плана уже недостаточно: требования живут в репозитории рядом с кодом, а агент работает по спеке.</p><ul><li>Зачем нужна спецификация и из чего она состоит</li><li>Фреймворки: OpenSpec, Spec Kit, Kiro, BMAD-METHOD</li><li>Main и delta спецификации, что такое change</li><li>Цикл propose → apply → archive и ревью спеки</li><li>Когда спека окупается, а когда лишняя</li></ul></div>
+            <div class="viz"><svg class="v v6" viewBox="0 0 520 440" aria-hidden="true">
+  <text class="cap" x="28" y="32">спеки живут в репозитории рядом с кодом</text>
+  <text class="mono tr dim" x="28" y="70" xml:space="preserve">openspec/</text>
+  <text class="mono tr" x="28" y="100" xml:space="preserve">├─ specs/</text>
+  <text class="mono tr" x="28" y="130" xml:space="preserve">│  └─ vets/spec.md</text>
+  <text class="mono tr dim" x="28" y="160" xml:space="preserve">└─ changes/</text>
+  <text class="mono tr" x="28" y="190" xml:space="preserve">   ├─ add-vet-salary/</text>
+  <text class="mono tr fl" style="--d:0s" x="28" y="220" xml:space="preserve">   │  ├─ proposal.md</text>
+  <text class="mono tr fl" style="--d:0.15s" x="28" y="250" xml:space="preserve">   │  ├─ specs/</text>
+  <text class="mono tr fl" style="--d:0.3s" x="28" y="280" xml:space="preserve">   │  ├─ design.md</text>
+  <text class="mono tr fl" style="--d:0.45s" x="28" y="310" xml:space="preserve">   │  └─ tasks.md</text>
+  <text class="mono tr" x="28" y="340" xml:space="preserve">   └─ archive/</text>
+  <rect class="tag" x="112" y="86" width="44" height="18" rx="9"/><text class="dk" x="134" y="99" text-anchor="middle" style="font-size:11px">main</text>
+  <rect class="tag2" x="166" y="241" width="50" height="18" rx="9"/><text class="dk" x="191" y="254" text-anchor="middle" style="font-size:11px">delta</text>
+  <text class="tick" x="176" y="314">✓ ✓ ✓</text>
+  <rect class="arch" x="24" y="347" width="150" height="2" rx="1"/>
+  <g class="dchip"><rect x="224" y="238" width="72" height="24" rx="12"/><text class="dk" x="260" y="254" text-anchor="middle" style="font-size:11.5px">+ salary</text></g>
+  <rect class="pill" x="304" y="60" width="192" height="52" rx="14"/><g class="pon" style="--k:vzP0"><rect x="304" y="60" width="192" height="52" rx="14"/></g>
+  <text class="mono" x="320" y="82">/opsx:propose</text><text class="cap" x="320" y="100" style="font-size:11.5px">спека, дизайн и задачи</text>
+  <path class="arr" d="M400 114 V168 M394 162 l6 6 l6 -6"/><text class="rv6" x="412" y="146">✓ ревью спеки</text>
+  <rect class="pill" x="304" y="172" width="192" height="52" rx="14"/><g class="pon" style="--k:vzP1"><rect x="304" y="172" width="192" height="52" rx="14"/></g>
+  <text class="mono" x="320" y="194">/opsx:apply</text><text class="cap" x="320" y="212" style="font-size:11.5px">код и тесты по tasks.md</text>
+  <path class="arr" d="M400 226 V280 M394 274 l6 6 l6 -6"/><text class="rv6" x="412" y="258">✓ ревью кода</text>
+  <rect class="pill" x="304" y="284" width="192" height="52" rx="14"/><g class="pon" style="--k:vzP2"><rect x="304" y="284" width="192" height="52" rx="14"/></g>
+  <text class="mono" x="320" y="306">/opsx:archive</text><text class="cap" x="320" y="324" style="font-size:11.5px">delta вливается в main</text>
+  <text class="cap" x="28" y="412">main — как система работает сейчас, change — что в ней меняем</text>
+</svg></div>
+          </article>
         </div>
-        <div class="stack-cap"><b id="capName">LLM и агенты</b><span id="capNo">тема 1 из 6</span></div>
-      </div>
-      <div class="mods">
-        <article class="mod" data-i="0" data-name="LLM и агенты">
-          <span class="no">тема 01</span>
-          <h3>Как устроены LLM и агенты</h3>
-          <p>Что происходит между промптом и ответом — и почему от этого зависят качество и цена.</p>
-          <ul><li>Токены, temperature и размышления</li><li>Больше размышлений — не значит лучше ответ</li><li>Кэш промпта: как не платить дважды</li><li>Function calling и агентский цикл</li><li>Контекст — единственная память модели</li></ul>
-        </article>
-        <article class="mod" data-i="1" data-name="Harness и среда">
-          <span class="no">тема 02</span>
-          <h3>Harness и рабочая среда</h3>
-          <p>Что агент умеет из коробки и как собрать рабочее место, где он видит весь проект.</p>
-          <ul><li>Claude Code как harness</li><li>OpenIDE: любые агенты в одной IDE</li><li>Базовый сетап OpenIDE + Claude Code</li></ul>
-        </article>
-        <article class="mod" data-i="2" data-name="Способы работы">
-          <span class="no">тема 03</span>
-          <h3>Три способа вести разработку</h3>
-          <p>Где проверять работу агента: в готовом результате, в плане или ещё на этапе обсуждения.</p>
-          <ul><li>Промпт → результат: когда хватает одного промпта</li><li>Разработка через план: ошибку понимания ловим до кода</li><li>Сначала обсудить: детали, ожидания, бизнес-правила</li><li>Как выбрать способ под задачу</li></ul>
-        </article>
-        <article class="mod" data-i="3" data-name="Возможности harness">
-          <span class="no">тема 04</span>
-          <h3>Возможности harness</h3>
-          <p>Из коробки агент знает всё в общем и ничего — про ваш проект. Учим его вашему проекту.</p>
-          <ul><li>Управление контекстом <small>· /compact, /rewind, /context</small></li><li>CLAUDE.md и AGENTS.md</li><li>Скиллы и MCP-серверы</li><li>Сабагенты и параллельная работа в worktree</li><li>Хуки и разрешения</li></ul>
-        </article>
-        <article class="mod" data-i="4" data-name="Guardrails">
-          <span class="no">тема 05</span>
-          <h3>Guardrails: барьеры для агента</h3>
-          <p>Автоматические проверки, которые падают, если код агента нарушает договорённости команды.</p>
-          <ul><li>Spotless и Checkstyle</li><li>Тесты в два контура: unit и integration</li><li>ArchUnit: архитектура под тестом</li><li>Покрытие JaCoCo и мутационное тестирование PIT</li><li>Базовый сетап Spring Boot-проекта</li></ul>
-        </article>
-        <article class="mod" data-i="5" data-name="OpenSpec">
-          <span class="no">тема 06</span>
-          <h3>OpenSpec: разработка через спецификацию</h3>
-          <p>Когда плана уже недостаточно: требования живут в репозитории рядом с кодом, а агент работает по спеке.</p>
-          <ul><li>Зачем нужна спецификация и из чего она состоит</li><li>Фреймворки: OpenSpec, Spec Kit, Kiro, BMAD-METHOD</li><li>Main и delta спецификации, что такое change</li><li>Цикл propose → apply → archive и ревью спеки</li><li>Когда спека окупается, а когда лишняя</li></ul>
-        </article>
       </div>
     </div>
   </div>
@@ -837,11 +1113,21 @@ footer .collab{background:rgba(255,255,255,.92)}
   setTimeout(()=>$$('.rv').forEach(el=>el.classList.add('in')),4000);
   onScroll();
 
-  /* Программа: стопка модулей следует за прокруткой */
-  const pls=$$('.stack .pl'), mods=$$('.mod');
-  const setMod=i=>{pls.forEach(p=>{const k=+p.dataset.i;p.classList.toggle('on',k===i);p.classList.toggle('done',k<i)});$('#capName').textContent=mods[i].dataset.name;$('#capNo').textContent='тема '+(i+1)+' из 6'};
-  const mio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setMod(+e.target.dataset.i)}),{rootMargin:'-45% 0px -45% 0px'});
-  mods.forEach(m=>mio.observe(m));
+  /* Программа: блок закреплён, по прокрутке меняются темы; после шестой страница едет дальше */
+  const pin=$('#pin'),topicsEl=$('#topics'),tps=$$('.topic'),railB=$$('#rail button');
+  const ACC=[['#c3f53c','#5cc46a'],['#8b7bff','#c3f53c'],['#3fd0b0','#8b7bff'],['#ffb547','#ff7a59'],['#ff7a59','#c3f53c'],['#c3f53c','#8b7bff']];
+  const mqPin=matchMedia('(min-width:901px) and (min-height:621px)');
+  let tCur=-1;
+  const setTopic=i=>{if(i===tCur)return;tCur=i;tps.forEach((t,k)=>t.classList.toggle('on',k===i));railB.forEach((b,k)=>{b.classList.toggle('on',k===i);b.setAttribute('aria-current',k===i?'step':'false')});topicsEl.style.setProperty('--a1',ACC[i][0]);topicsEl.style.setProperty('--a2',ACC[i][1])};
+  const pinTotal=()=>Math.max(1,pin.offsetHeight-innerHeight);
+  function pinScroll(){if(!mqPin.matches)return;const p=Math.min(1,Math.max(0,-pin.getBoundingClientRect().top/pinTotal()));const f=p*tps.length;const i=Math.min(tps.length-1,Math.floor(f));setTopic(i);railB.forEach((b,k)=>b.style.setProperty('--f',k<i?1:k>i?0:Math.min(1,f-i)))}
+  railB.forEach((b,k)=>b.addEventListener('click',()=>{if(!mqPin.matches){tps[k].scrollIntoView({behavior:reduce?'auto':'smooth'});return}scrollTo({top:pin.getBoundingClientRect().top+scrollY+pinTotal()*(k+.25)/tps.length,behavior:reduce?'auto':'smooth'})}));
+  addEventListener('scroll',pinScroll,{passive:true});addEventListener('resize',pinScroll);
+  /* без закрепления каждая тема анимируется, когда видна */
+  const tio=new IntersectionObserver(es=>es.forEach(e=>{if(!mqPin.matches)e.target.classList.toggle('on',e.isIntersecting)}),{threshold:.2});
+  tps.forEach(t=>tio.observe(t));
+  mqPin.addEventListener('change',()=>{tCur=-1;if(mqPin.matches)pinScroll();else tps.forEach(t=>{const r=t.getBoundingClientRect();t.classList.toggle('on',r.bottom>0&&r.top<innerHeight)})});
+  setTopic(0);pinScroll();
 
   onScroll();
 
