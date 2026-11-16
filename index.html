@@ -180,7 +180,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .topic li:last-child{border-bottom:0}
 .topic li::before{content:"";position:absolute;left:4px;top:calc(9px + .45em);width:10px;height:10px;border-radius:3px;background:var(--acc);box-shadow:0 0 0 1.5px var(--ink);transform:rotate(45deg)}
 .topic li small{color:var(--muted);font-size:15px}
-.topic .viz{grid-column:2;height:var(--vh);display:grid;place-items:center;padding:26px 28px;position:relative}
+.topic .viz{grid-column:2;height:var(--vh);display:block;padding:24px 26px;position:relative}
 .js .topic .txt>*{opacity:0;transform:translateY(26px);filter:blur(8px);transition:opacity .45s ease,transform .6s var(--ease),filter .45s ease}
 .js .topic.on .txt>*{opacity:1;transform:none;filter:none;transition-duration:.7s,.9s,.7s}
 .js .topic.on .txt>:nth-child(2){transition-delay:.06s}.js .topic.on .txt>:nth-child(3){transition-delay:.12s}.js .topic.on .txt>:nth-child(4){transition-delay:.18s}
@@ -188,7 +188,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .js .topic.on .viz{opacity:1;transform:none;transition:opacity .7s ease .12s,transform .9s var(--ease) .12s}
 
 /* схемы */
-.v{width:100%;height:100%;display:block;overflow:visible}
+.v{width:100%;height:100%;min-height:0;display:block;overflow:visible}
 .v text{font-family:var(--f);font-size:14px;fill:#d6e4d2}
 .v .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:14px}
 .v .cap{font-size:13px;fill:rgba(214,228,210,.55);letter-spacing:.02em}
@@ -697,7 +697,7 @@ footer .collab{background:rgba(255,255,255,.92)}
           </article>
           <article class="topic" style="--acc:#3fd0b0" aria-label="Тема 03. Три способа вести разработку">
             <div class="txt"><span class="no">тема 03</span><h3>Три способа вести разработку</h3><p>Где проверять работу агента: в готовом результате, в плане или ещё на этапе обсуждения.</p><ul><li>Промпт → результат: когда хватает одного промпта</li><li>Разработка через план: ошибку понимания ловим до кода</li><li>Сначала обсудить: детали, ожидания, бизнес-правила</li><li>Как выбрать способ под задачу</li></ul></div>
-            <div class="viz"><svg class="v v3" viewBox="0 0 520 440" aria-hidden="true">
+            <div class="viz"><svg class="v v3" viewBox="0 25 520 440" aria-hidden="true">
   <text class="lbl" x="28" y="78">Промпт → результат</text>
   <line class="lane" x1="40" y1="110" x2="448" y2="110"/><circle class="run" style="--d:0s" cx="40" cy="110" r="6"/>
   <rect class="nd" x="40" y="92" width="92" height="36" rx="18"/><text x="86" y="115" text-anchor="middle">промпт</text>
@@ -726,7 +726,7 @@ footer .collab{background:rgba(255,255,255,.92)}
           </article>
           <article class="topic" style="--acc:#ffb547" aria-label="Тема 04. Возможности harness">
             <div class="txt"><span class="no">тема 04</span><h3>Возможности harness</h3><p>Из коробки агент знает всё в общем и ничего — про ваш проект. Учим его вашему проекту.</p><ul><li>Управление контекстом <small>· /compact, /rewind, /context</small></li><li>CLAUDE.md и AGENTS.md</li><li>Скиллы и MCP-серверы</li><li>Сабагенты и параллельная работа в worktree</li><li>Хуки и разрешения</li></ul></div>
-            <div class="viz"><svg class="v v4" viewBox="0 0 520 440" aria-hidden="true">
+            <div class="viz"><svg class="v v4" viewBox="0 12 520 440" aria-hidden="true">
   <circle class="orbit" cx="260" cy="214" r="150"/>
   <line class="spoke" x1="260" y1="64" x2="260" y2="214"/><line class="sp" style="--d:0s" x1="260" y1="64" x2="260" y2="214"/><line class="spoke" x1="390" y1="139" x2="260" y2="214"/><line class="sp" style="--d:0.5s" x1="390" y1="139" x2="260" y2="214"/><line class="spoke" x1="390" y1="289" x2="260" y2="214"/><line class="sp" style="--d:1s" x1="390" y1="289" x2="260" y2="214"/><line class="spoke" x1="260" y1="364" x2="260" y2="214"/><line class="sp" style="--d:1.5s" x1="260" y1="364" x2="260" y2="214"/><line class="spoke" x1="130" y1="289" x2="260" y2="214"/><line class="sp" style="--d:2s" x1="130" y1="289" x2="260" y2="214"/><line class="spoke" x1="130" y1="139" x2="260" y2="214"/><line class="sp" style="--d:2.5s" x1="130" y1="139" x2="260" y2="214"/>
   <circle class="core glow" cx="260" cy="214" r="46"/>
